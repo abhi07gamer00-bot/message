@@ -31,10 +31,7 @@ body {
     z-index: 2;
 }
 
-h1 {
-    color: #ff5f7e;
-    font-size: 1.6rem;
-}
+h1 { color: #ff5f7e; font-size: 1.6rem; }
 
 p {
     font-size: 1rem;
@@ -54,9 +51,7 @@ button {
     cursor: pointer;
 }
 
-.small-btn {
-    background: #ff8fa3;
-}
+.small-btn { background: #ff8fa3; }
 
 /* FLOATING HEARTS */
 .heart {
@@ -102,11 +97,6 @@ button {
     border-radius: 20px;
     width: 85%;
     max-width: 380px;
-    animation: pop 0.3s ease;
-}
-@keyframes pop {
-    from { transform: scale(0.85); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
 }
 </style>
 </head>
@@ -118,13 +108,12 @@ button {
 </audio>
 
 <div class="card" id="content">
-    <h1>This is for someone who is so special for us 💖</h1>
+    <h1>This is for someone who is so much precious to us  💖</h1>
     <p>Click a few times… something special is waiting ✨</p>
     <button onclick="handleClick()">Click me 💫</button>
     <p id="counter"></p>
 </div>
 
-<!-- MODAL -->
 <div class="modal" id="modal">
     <div class="modal-box">
         <h1 id="modalTitle"></h1>
@@ -140,23 +129,23 @@ const requiredClicks = [3,5,7];
 const content = document.getElementById("content");
 const music = document.getElementById("bgMusic");
 
-/* DENSE FLOATING HEARTS */
+/* BACKGROUND HEARTS */
 const heartEmojis = ["💖","💗","💓","💕","💘"];
 setInterval(() => {
-    for(let i=0;i<4;i++){
-        const h=document.createElement("div");
-        h.className="heart";
-        h.innerText=heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
-        h.style.left=Math.random()*100+"vw";
-        h.style.fontSize=(14+Math.random()*18)+"px";
-        h.style.opacity=0.6+Math.random()*0.4;
-        h.style.animationDuration=(4+Math.random()*5)+"s";
+    for (let i = 0; i < 4; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerText = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+        h.style.left = Math.random()*100 + "vw";
+        h.style.fontSize = (14 + Math.random()*18) + "px";
+        h.style.opacity = 0.6 + Math.random()*0.4;
+        h.style.animationDuration = (4 + Math.random()*5) + "s";
         document.body.appendChild(h);
-        setTimeout(()=>h.remove(),9000);
+        setTimeout(() => h.remove(), 9000);
     }
-},250);
+}, 250);
 
-/* 💥 HEART EXPLOSION — FIXED */
+/* HEART EXPLOSION */
 function heartExplosion(){
     for(let i=0;i<20;i++){
         const h=document.createElement("div");
@@ -171,7 +160,7 @@ function heartExplosion(){
     }
 }
 
-/* ⌨️ TYPING EFFECT */
+/* TYPING */
 function typeText(el,text,speed=40){
     el.innerHTML="";
     let i=0;
@@ -182,30 +171,34 @@ function typeText(el,text,speed=40){
     },speed);
 }
 
+/* 🔐 CLICK LOGIC — FIXED */
 function handleClick(){
     if(music.paused){
-        music.volume=0.4;
+        music.volume = 0.4;
         music.play();
     }
 
     clicks++;
 
-    if(page < requiredClicks.length && clicks < requiredClicks[page]){
+    // show counter while not unlocked
+    if (page < requiredClicks.length && clicks < requiredClicks[page]) {
         document.getElementById("counter").innerText =
         `Clicks: ${clicks} / ${requiredClicks[page]}`;
         return;
     }
 
-    heartExplosion(); // 🔥 NOW IT WORKS
-
-    clicks=0;
-    page++;
-    loadPage();
+    // 🔥 EXACT UNLOCK MOMENT
+    if (page < requiredClicks.length && clicks === requiredClicks[page]) {
+        heartExplosion();
+        clicks = 0;
+        page++;
+        loadPage();
+    }
 }
 
 function loadPage(){
-    if(page===4){
-        content.innerHTML=`
+    if(page === 4){
+        content.innerHTML = `
         <h1>A Message for You 💖</h1>
         <p id="typing"></p>
 
@@ -214,43 +207,31 @@ function loadPage(){
         <button class="small-btn" onclick="openModal(3)">Things we’d like to do someday with you</button>
         `;
         typeText(document.getElementById("typing"),
-` `);
+`No matter what happens in life,
+remember you are deeply loved 💕
+
+You matter more than you know 🌸`);
     }
 }
 
 function openModal(type){
     const modal=document.getElementById("modal");
-    const title=document.getElementById("modalTitle");
-    const text=document.getElementById("modalText");
     modal.style.display="flex";
 
-    heartExplosion(); // 💥 also explode on modal open
+    const title=document.getElementById("modalTitle");
+    const text=document.getElementById("modalText");
 
     if(type===1){
         title.innerText="Things we like about you 💕";
-        typeText(text,
-`What makes you truly special is the way you listen with patience, 
-presence, and genuine care!❤️ You let us speak fully then comfort us gently before helping us understand things more clearly!!!🎀🫶 
-You balance softness and energy so beautifully and your sensitivity only adds to how deeply you care!!✨❤️
-Even when life is busy for you, you still show up for others and that says everything about your heart!!
-You calm us, motivate us, protect us, and hype us in ways that feel real and safe!! 
-Your care, honesty, and consistency make you someone incredibly rare and we are truly grateful to have you in our lives 
-thank you soo muchhh for always being there for us 😭❤️`);
+        typeText(text,"What makes you truly special is the way you listen with patience, presence, and genuine care!❤️ You let us speak fully then comfort us gently before helping us understand things more clearly!!!🎀🫶 You balance softness and energy so beautifully and your sensitivity only adds to how deeply you care!!✨❤️ Even when life is busy for you, you still show up for others and that says everything about your heart!! You calm us, motivate us, protect us, and hype us in ways that feel real and safe!! Your care, honesty, and consistency make you someone incredibly rare and we are truly grateful to have you in our lives thank you soo muchhh for always being there for us 😭❤️ 💖");
     }
     if(type===2){
         title.innerText="How grateful we are 🌷";
-        typeText(text,
-`Grateful for your presence,
-your support, your time,
-and every moment you stayed ✨`);
+        typeText(text,"We are genuinely so grateful for you, for your time, your patience, and the care you give so effortlessly Having you in our lives feels comforting in a way thats hard to explain but easy to feelYou make things lighter just by being yourself and thats something we never take for granted. We are thankful not just for what you do but for who you are. You have become someone we truly value and appreciate more than words can fully express. Your presence feels like a safe place, and we are really grateful for that.✨");
     }
     if(type===3){
         title.innerText="Someday with you 💫";
-        typeText(text,
-`Travel together,
-laugh endlessly,
-and make memories
-we’ll never forget 💕`);
+        typeText(text,"🌙 Things we’d love to do with you somedayWe would love to go on long night walks with you, just talking about random things and laughing without realizing how much time has passed and how beautiful it is.Watching a movie together, sharing reactions, inside jokes, and just enjoying the moment.A chill beach-side hangout good food, soft music, cool breeze, and us just sitting there, enjoying the view and each others company.Walking around, clicking random photos, talking about life, dreams, and everything in between.Just simple moments with you no rush, no pressure, just comfort and good vibes💕");
     }
 }
 
